@@ -8,11 +8,16 @@ using UnityEngine.UI;
 public class WishingUI : MonoBehaviour
 {
     [Header("CloundsBG1")]
+    public GameObject BG1Panel;
     public List<GameObject> clounds;
-    [Header("CloundsBG2")]
     public GameObject splash;
     public GameObject star1;
     public GameObject star2;
+    public GameObject circleStar1;
+    public GameObject circleStar2;
+
+    [Header("Shooting Star")]
+    public GameObject shootingStar;
     void Start()
     {
         Clounds0FlyIn();
@@ -27,7 +32,18 @@ public class WishingUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             OnSplashStart();
+            OnStar1Splash();
+            OnStar2Splash();
+            OnCircleStar2Out();
         }
+    }
+
+    public void OnWishButtonDown()
+    {
+        OnSplashStart();
+        OnStar1Splash();
+        OnStar2Splash();
+        OnCircleStar2Out();
     }
 
     #region Clounds Backround anim
@@ -102,5 +118,73 @@ public class WishingUI : MonoBehaviour
     {
         splash.gameObject.SetActive(false);
     }
+
+    public void OnStar1Splash()
+    {
+        star1.gameObject.SetActive(true);
+        Tween.LocalScale(star1.transform, new Vector3(1f, 1f, 1f), new Vector3(1.5f, 1.5f, 1), 0.5f, 0,
+            Tween.EaseInOut, Tween.LoopType.None, null, OnStar1Fly, false);
+    }
+
+    public void OnStar1Fly()
+    {
+        Tween.LocalScale(star1.transform, new Vector3(1.5f, 1.5f, 1), new Vector3(0.5f, 0.5f, 1f), 0.75f, 0,
+            Tween.EaseInOut, Tween.LoopType.None, null, null, false);
+    }
+
+    public void OnStar2Splash()
+    {
+        star2.gameObject.SetActive(true);
+        Tween.LocalScale(star2.transform, new Vector3(1f, 1f, 1f), new Vector3(1.5f, 1f, 1f), 0.5f, 0,
+            Tween.EaseInOut, Tween.LoopType.None, null, OnStar2Fly, false);
+    }
+
+    public void OnStar2Fly()
+    {
+        Tween.LocalScale(star2.transform, new Vector3(1.5f, 1, 1), new Vector3(1f, 1f, 1f), 0.25f, 0,
+            Tween.EaseInOut, Tween.LoopType.None, null, () => { star2.gameObject.SetActive(false); }, false);
+    }
+
+    public void OnCircleStar2Out()
+    {
+        circleStar2.gameObject.SetActive(true);
+        Tween.LocalScale(circleStar2.transform, new Vector3(1.3f, 1.3f, 1.3f), new Vector3(1.5f, 1.5f, 1.5f), 0.75f, 0,
+            Tween.EaseInOut, Tween.LoopType.None, null, OnCircleStar2In, false);
+    }
+
+    public void OnCircleStar2In()
+    {
+
+        circleStar2.gameObject.SetActive(true);
+        Tween.LocalScale(circleStar2.transform, new Vector3(1.4f, 1.4f, 1.4f), new Vector3(0.45f, 0.45f, 0.45f), 0.5f, 0,
+            Tween.EaseInOut, Tween.LoopType.None, null, null, false);
+
+        circleStar1.gameObject.SetActive(true);
+        Color co = circleStar2.GetComponent<Image>().color;
+        Tween.Color(circleStar2.GetComponent<Image>(), co, new Color(co.r, co.g, co.b, 100f / 255f), 0.5f, 0.25f,
+                  Tween.EaseInOut, Tween.LoopType.None, null, OnBG1PanelOut, false);
+    }
+
+    public void OnBG1PanelOut()
+    {
+        OnShootingStarZoomOut();
+        Tween.LocalPosition(BG1Panel.GetComponent<RectTransform>(), new Vector3(0, 0, 0), new Vector3(-1900, 1500, 0), 1f, 0,
+            Tween.EaseInOut, Tween.LoopType.None, null, null, false);
+    }
+
+    public void OnShootingStarFly()
+    {
+        Tween.LocalPosition(shootingStar.GetComponent<RectTransform>(), new Vector3(-280, 280, 0), new Vector3(0, 0, 0), 1f, 0,
+            Tween.EaseInOut, Tween.LoopType.None, null, null, false);
+    }
+
+    public void OnShootingStarZoomOut()
+    {
+        shootingStar.gameObject.SetActive(true);
+        Tween.LocalScale(shootingStar.GetComponent<RectTransform>(), new Vector3(1, 1, 1), new Vector3(3, 3, 3), 0.5f, 0,
+           Tween.EaseInOut, Tween.LoopType.None, null, null, false);
+    }
+
+
     #endregion
 }
