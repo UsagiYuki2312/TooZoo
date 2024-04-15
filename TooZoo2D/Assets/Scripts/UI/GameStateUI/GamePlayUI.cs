@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GamePlayUI : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Button settingButton;
+
     void Start()
     {
-        
+        settingButton.onClick.AddListener(OnPause);
     }
-
-    // Update is called once per frame
-    void Update()
+    public void OnPause()
     {
-        
+        MessageManager.Instance.SendMessage(new Message(TeeMessageType.OnPause));
     }
 }

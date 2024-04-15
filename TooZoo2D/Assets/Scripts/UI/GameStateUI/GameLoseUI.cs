@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameLoseUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Button noThank;
+    public UnityAction OnReturnClick;
+    public UnityAction OnAdsButtonClick;
 
-    // Update is called once per frame
-    void Update()
+    public void Start()
     {
-        
+        noThank.onClick.AddListener(OnReturnClick);
+    }
+    public void OnReturn()
+    {
+        OnReturnClick?.Invoke();
+
     }
 }

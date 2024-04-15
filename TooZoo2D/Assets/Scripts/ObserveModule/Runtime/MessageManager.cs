@@ -4,17 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum TeeMessageType
 {
-    OnPlayButtonClicked = 1,
-    OnPlayerRunOutOfHealth = 2,
-    OnPlayerLevelUp = 3,
-    OnSkillLevelUp = 4,
-    OnReduceMaxNumber = 5,
-    OnPauseButtonClicked = 6,
-    OnPauseMenuDestroyed = 7,
-    OnResumeButtonClicked = 8,
-    OnOfflineEarnClicked = 9,
-    OnPlayerRevive = 10,
-    OnPlayerDie = 11
+    OnPlay = 1,
+    OnPause = 2,
+    OnContinue = 3,
+    OnQuit = 4,
+    OnLose = 5,
+    OnWin = 6,
 }
 public class Message
 {
