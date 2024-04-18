@@ -11,6 +11,8 @@ public class GamePlayState : State, IMessageHandle
     public GamePlayUI gamePlayUI;
     private GamePauseUI gamePauseUIPrefabs;
     public GamePauseUI gamePauseUI;
+    private PlayerController playerController;
+    private CatController catController;
 
     void IMessageHandle.Handle(Message message)
     {
@@ -21,7 +23,7 @@ public class GamePlayState : State, IMessageHandle
                 this.SetTimeScale(0);
                 break;
             case TeeMessageType.OnContinue:
-                Destroy(gamePauseUI.gameObject); 
+                Destroy(gamePauseUI.gameObject);
                 this.SetTimeScale(1);
                 break;
             case TeeMessageType.OnQuit:
@@ -29,11 +31,14 @@ public class GamePlayState : State, IMessageHandle
                 SceneManager.LoadScene("Main");
                 break;
             case TeeMessageType.OnLose:
-                ChangeState("GameLose");
+                playerController.SetStatePlayer(PlayerState.Idle);
+                catController.SetStateCat(CatState.Idle);
+                ChangeState("GameLoseState");
                 break;
             case TeeMessageType.OnWin:
-
-                ChangeState("GameWin");
+                playerController.SetStatePlayer(PlayerState.Idle);
+                catController.SetStateCat(CatState.Idle);
+                ChangeState("GameWinState");
                 break;
         }
     }
@@ -42,6 +47,9 @@ public class GamePlayState : State, IMessageHandle
     {
         gamePlayUIPrefabs = Resources.Load<GamePlayUI>(UI_PATH + "GamePlay");
         gamePauseUIPrefabs = Resources.Load<GamePauseUI>(UI_PATH + "GamePause");
+        playerController = FindObjectOfType<PlayerController>();
+        catController = FindObjectOfType<CatController>();
+
         MessageManager.Instance.AddSubcriber(TeeMessageType.OnPause, this);
         MessageManager.Instance.AddSubcriber(TeeMessageType.OnContinue, this);
         MessageManager.Instance.AddSubcriber(TeeMessageType.OnQuit, this);
@@ -52,6 +60,8 @@ public class GamePlayState : State, IMessageHandle
     private void Start()
     {
         gamePlayUI = Instantiate(gamePlayUIPrefabs);
+        playerController.SetStatePlayer(PlayerState.Run);
+        catController.SetStateCat(CatState.Chase);
     }
 
     private void OnDisable()
