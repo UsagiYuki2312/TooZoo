@@ -37,6 +37,7 @@ public class GameStartState : State, IMessageHandle
     private void Start()
     {
         gameStartUI = Instantiate(gameStartUIPrefabs);
+      
         SetPlayerStart();
     }
 
@@ -47,10 +48,11 @@ public class GameStartState : State, IMessageHandle
 
     private void SetPlayerStart()
     {
+        LevelController level =  Instantiate(LevelManager.Instance.GetCurrentLevel());
         playerController.SetStatePlayer(PlayerState.Idle);
         catController.SetStateCat(CatState.Idle);
 
-        Vector3 position = FindObjectOfType<Level1Controller>().startPosition.transform.position;
+        Vector3 position = level.startPosition.transform.position;
         playerController.transform.position = new Vector3(position.x, playerController.transform.position.y, playerController.transform.position.z);
     }
 

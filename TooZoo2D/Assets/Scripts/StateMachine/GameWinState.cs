@@ -20,10 +20,17 @@ public class GameWinState : State
     {
         gameWinUI = Instantiate(gameWinUIPrefabs);
         gameWinUI.OnReturnClick = GetRewardAndReturn;
+        SaveLevel();
     }
 
     public void GetRewardAndReturn()
     {
         SceneManager.LoadScene("Main");
+    }
+
+    public void SaveLevel()
+    {
+        int level = DataController.Instance.gameData.levelData.currentLevel;
+        LevelManager.Instance.SetNextLevel(level);
     }
 }
