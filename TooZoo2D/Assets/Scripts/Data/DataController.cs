@@ -1,15 +1,23 @@
 using Pixelplacement;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
+using System.IO;
+using System.Linq;
 
+[RequireComponent(typeof(UnityEngine.PlayerLoop.Initialization))]
 public class DataController : Singleton<DataController>
 {
     private string KEY = "TZ";
     private string dataPath = "";
     public GameData gameData;
+
+    protected override void OnRegistration()
+    {
+        dataPath = System.IO.Path.Combine(Application.persistentDataPath, "data.dat");
+#if !UNITY_EDITOR
+            Application.targetFrameRate=60;
+#endif
+    }
 
     public void LoadData()
     {
@@ -47,7 +55,6 @@ public class DataController : Singleton<DataController>
 
     private void OnEnable()
     {
-        dataPath = System.IO.Path.Combine(Application.persistentDataPath, "data.dat");
         LoadData();
     }
 
