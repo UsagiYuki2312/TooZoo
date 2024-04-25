@@ -77,7 +77,7 @@ public class CatController : MonoBehaviour
 
     IEnumerator OnFindComplete()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         fov.fieldOfView.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.2f);
         fov.fieldOfView.gameObject.SetActive(true);
