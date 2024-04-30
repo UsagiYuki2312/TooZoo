@@ -9,10 +9,6 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset;
 
     Vector3 targetPosition;
-    private void Awake()
-    {
-        target = FindObjectOfType<PlayerController>().transform;
-    }
     void Start()
     {
         offset = new Vector3(0, 1, 0);

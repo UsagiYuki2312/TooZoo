@@ -8,9 +8,13 @@ using UnityEngine.UIElements;
 public class GameStartState : State, IMessageHandle
 {
     private const string UI_PATH = "Prefabs/UI/GameState/";
+    private const string CHARACTER_PATH = "Prefabs/Character/";
     private GameStartUI gameStartUIPrefabs;
     public GameStartUI gameStartUI;
+
+    private PlayerController playerControllerPrefabs;
     private PlayerController playerController;
+    private CatController catControllerPrefabs;
     private CatController catController;
 
 
@@ -28,8 +32,8 @@ public class GameStartState : State, IMessageHandle
     private void Awake()
     {
         gameStartUIPrefabs = Resources.Load<GameStartUI>(UI_PATH + "GameStart");
-        playerController = FindObjectOfType<PlayerController>();
-        catController = FindObjectOfType<CatController>();
+        playerControllerPrefabs = Resources.Load<PlayerController>(CHARACTER_PATH + "Player");
+        catControllerPrefabs = Resources.Load<CatController>(CHARACTER_PATH + "MeoMeo");
 
         MessageManager.Instance.AddSubcriber(TeeMessageType.OnPlay, this);
     }
@@ -37,7 +41,6 @@ public class GameStartState : State, IMessageHandle
     private void Start()
     {
         gameStartUI = Instantiate(gameStartUIPrefabs);
-      
         SetPlayerStart();
     }
 
@@ -48,7 +51,10 @@ public class GameStartState : State, IMessageHandle
 
     private void SetPlayerStart()
     {
-        LevelController level =  Instantiate(LevelManager.Instance.GetCurrentLevel());
+        playerController = Instantiate(playerControllerPrefabs);
+        Camera.main.GetComponent<CameraFollow>().target = playerController.transform;
+        catController = Instantiate(catControllerPrefabs);
+        LevelController level = Instantiate(LevelManager.Instance.GetCurrentLevel());
         playerController.SetStatePlayer(PlayerState.Idle);
         catController.SetStateCat(CatState.Idle);
 
@@ -56,9 +62,5 @@ public class GameStartState : State, IMessageHandle
         playerController.transform.position = new Vector3(position.x, playerController.transform.position.y, playerController.transform.position.z);
     }
 
-    private void SetMapLevel()
-    {
-
-    }
 
 }
