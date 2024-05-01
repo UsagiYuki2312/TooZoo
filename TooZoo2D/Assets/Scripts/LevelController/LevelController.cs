@@ -7,4 +7,6 @@ public class LevelController : MonoBehaviour
     public int id;
     public GameObject startPosition;
     public GameObject endPosition;
+    public GameObject findPosition;
+    public GameObject chasePosition;
 }
