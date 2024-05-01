@@ -65,14 +65,14 @@ public class CatController : MonoBehaviour
                     return;
                 }
                 fov.viewRadius += Time.deltaTime * 5;
-                fov.viewRadius = Mathf.Clamp(fov.viewRadius, 0, 10);
+                fov.viewRadius = Mathf.Clamp(fov.viewRadius, 0, 7);
                 if (fov.CheckPlayerVisible())
                 {
                     currentState = CatState.Idle;
                     MessageManager.Instance.SendMessage(new Message(TeeMessageType.OnLose));
                     count = 0;
                 }
-                if (fov.viewRadius >= 10)
+                if (fov.viewRadius >= 7)
                 {
                     currentState = CatState.FindComplete;
                     count = 0;
