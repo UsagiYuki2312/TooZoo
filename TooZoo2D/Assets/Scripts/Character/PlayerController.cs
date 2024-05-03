@@ -12,12 +12,15 @@ public enum PlayerState
 public class PlayerController : MonoBehaviour
 {
     public float speed;
+    public float defaultSpeed;
     public Rigidbody2D rigid;
     public Animator anim;
     public PlayerState currentState;
     private void Start()
     {
-        speed = 3f;
+        defaultSpeed = 3f;
+        speed = defaultSpeed;
+
     }
     public void Update()
     {
@@ -49,4 +52,15 @@ public class PlayerController : MonoBehaviour
             MessageManager.Instance.SendMessage(new Message(TeeMessageType.OnWin));
         }
     }
+
+    public void OnSlowSpeedPlayer()
+    {
+        speed = defaultSpeed * 0.75f;
+    }
+
+    public void OnResetSpeedPlayer()
+    {
+        speed = defaultSpeed;
+    }
+
 }
