@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "265489937033",
+    "project_id": "toozoo2d",
+    "storage_bucket": "toozoo2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265489937033:android:f15961f34ccc9e11ca4c58",
+        "android_client_info": {
+          "package_name": "com.Usagi.TooZoo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9u-hv_0cvtFnW9cByIc0N7xRJAfiCyx4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
